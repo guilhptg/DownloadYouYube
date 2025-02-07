@@ -1,6 +1,7 @@
-import tkinter as tk
+import customtkinter as tk
 from tkinter import messagebox, filedialog
-from pytube import YouTube
+from pytubefix import *
+
 
 def on_progress(stream, chunk, bytes_remaining):
     total_size = stream.filesize
@@ -26,6 +27,7 @@ def download_video():
 
     try:
         yt = YouTube(url, on_progress_callback=on_progress)
+
         if format_var.get() == "video":
             stream = yt.streams.filter(progressive=True, file_extension="mp4").order_by("resolution").desc().first()
         elif format_var.get() == "audio":
@@ -43,34 +45,40 @@ def download_video():
     except Exception as e:
         messagebox.showerror("Erro", f"Ocorreu um erro ao baixar o vídeo: {e}")
 
+
+
 # Configuração da janela principal
-root = tk.Tk()
+root = tk.CTk()
+# root = tk.Tk()
 root.title("YouTube Downloader")
-root.geometry("400x300")
+root.geometry("600x450")
+
+# Aparência
+# root.set_appearance_mode("dark")
 
 # Campo para inserção do link
-tk.Label(root, text="Link do YouTube:").pack(pady=5)
-url_entry = tk.Entry(root, width=50)
-url_entry.pack(pady=5)
+tk.CTkLabel(root, text="Link do YouTube:").pack(padx=10, pady=10)
+url_entry = tk.CTkEntry(root, width=350)
+url_entry.pack(padx=10, pady=10)
 
 # Campo para inserção do nome do arquivo
-tk.Label(root, text="Nome do arquivo (sem extensão):").pack(pady=5)
-filename_entry = tk.Entry(root, width=50)
-filename_entry.pack(pady=5)
+tk.CTkLabel(root, text="Nome do arquivo (sem extensão):").pack(padx=10, pady=10)
+filename_entry = tk.CTkEntry(root, width=350)
+filename_entry.pack(padx=10, pady=10)
 
 # Opções de formato
 format_var = tk.StringVar(value="video")
-tk.Label(root, text="Escolha o formato:").pack(pady=5)
-tk.Radiobutton(root, text="Vídeo", variable=format_var, value="video").pack()
-tk.Radiobutton(root, text="Áudio", variable=format_var, value="audio").pack()
+tk.CTkLabel(root, text="Escolha o formato:").pack(padx=10, pady=10)
+tk.CTkRadioButton(root, text="Vídeo", variable=format_var, value="video", border_width_unchecked=8, border_width_checked=12, fg_color=('blue'), border_color='black', text_color='white',).pack()
+tk.CTkRadioButton(root, text="Áudio", variable=format_var, value="audio").pack()
 
 # Label de progresso
-progress_label = tk.Label(root, text="Progresso: 0%")
-progress_label.pack(pady=5)
+progress_label = tk.CTkLabel(root, text="Progresso: 0%", width=350)
+progress_label.pack(padx=10, pady=10)
 
 # Botão de download
-download_button = tk.Button(root, text="Baixar", command=download_video)
-download_button.pack(pady=20)
+download_button = tk.CTkButton(root, text="Baixar", command=download_video)
+download_button.pack(padx=10, pady=10)
 
 # Inicia o loop da interface
 root.mainloop()
