@@ -69,17 +69,19 @@ filename_entry.pack(padx=10, pady=10)
 
 # Opções de formato
 format_var = tk.StringVar(value="video")
-tk.Label(root, text="Escolha o formato:").pack(padx=10, pady=10)
-tk.Radiobutton(root, text="Áudio", variable=format_var, value="audio").pack(padx=10, pady=10)
-tk.Radiobutton(root, text="Vídeo", variable=format_var, value="video").pack(padx=10, pady=10)
+tk.Label(root, text="Formato disponivel:").pack(padx=10, pady=10)
+# radio_audio = tk.Radiobutton(root, text="Áudio", variable=format_var, value="audio").pack(padx=10, pady=10)
+radio_video = tk.Radiobutton(root, text="Vídeo", variable=format_var, value="video").pack(padx=10, pady=10)
 
 # Label de progresso
 progress_label = tk.Label(root, text="Progresso: 0%", width=350)
 progress_label.pack(padx=10, pady=10)
 
 # Botão de download
+
 download_button = tk.Button(root, text="Baixar", command=download_video)
 download_button.pack(padx=10, pady=10)
 
 # Inicia o loop da interface
 root.mainloop()
+
